@@ -19,10 +19,13 @@ public class TransactionsRequestDTO {
     private BigDecimal transactionAmount;
 
     private  String transactionDescription;
-    private PaymentMethodEnum paymentMethodEnum;
+
+    private PaymentMethodEnum paymentMethod;
+
     private String cardNumber;
 
     private String cardExpirationDate;
 
     private  int cvv;
+
 }
