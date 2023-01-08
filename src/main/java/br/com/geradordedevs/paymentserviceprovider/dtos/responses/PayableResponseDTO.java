@@ -14,12 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PayableResponseDTO {
 
-    private  Long id;
 
-    private PaymentMethodEnum status;
-    private Instant TransactionCreationDate;
+    private String status;
+    private LocalDate paymentDate;
 
-    private String paymentDate;
-
-    private  double fee;
 }
