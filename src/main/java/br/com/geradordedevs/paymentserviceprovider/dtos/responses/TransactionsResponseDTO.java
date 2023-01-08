@@ -1,5 +1,6 @@
 package br.com.geradordedevs.paymentserviceprovider.dtos.responses;
 
+import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
 import br.com.geradordedevs.paymentserviceprovider.enums.PaymentMethodEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +19,13 @@ public class TransactionsResponseDTO {
 
     private  String transactionDescription;
 
-    private PaymentMethodEnum paymentMethodEnum;
+    private PaymentMethodEnum paymentMethod;
 
     private String cardNumber;
 
     private String cardExpirationDate;
 
     private  int cvv;
+
+    private PayableResponseDTO payables;
 }
