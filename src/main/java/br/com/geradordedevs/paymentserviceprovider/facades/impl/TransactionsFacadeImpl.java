@@ -2,6 +2,9 @@ package br.com.geradordedevs.paymentserviceprovider.facades.impl;
 
 import br.com.geradordedevs.paymentserviceprovider.dtos.requests.TransactionsRequestDTO;
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsResponseDTO;
+import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
+import br.com.geradordedevs.paymentserviceprovider.entities.TransactionsEntity;
+import br.com.geradordedevs.paymentserviceprovider.enums.PaymentMethodEnum;
 import br.com.geradordedevs.paymentserviceprovider.facades.TransactionsFacade;
 import br.com.geradordedevs.paymentserviceprovider.mappers.TransactionsMapper;
 import br.com.geradordedevs.paymentserviceprovider.services.TransactionsService;
@@ -36,6 +39,6 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
 
     public  String hideNumber(String num ){
         REDUCED_NUMBER = num.substring(num.length() -4);
-        return   HIDDEN_CARD_NUMBER+REDUCED_NUMBER;
+        return HIDDEN_CARD_NUMBER+REDUCED_NUMBER;
     }
 }
