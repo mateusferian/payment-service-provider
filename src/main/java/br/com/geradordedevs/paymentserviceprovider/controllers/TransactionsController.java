@@ -1,6 +1,7 @@
 package br.com.geradordedevs.paymentserviceprovider.controllers;
 
 import br.com.geradordedevs.paymentserviceprovider.dtos.requests.TransactionsRequestDTO;
+import br.com.geradordedevs.paymentserviceprovider.dtos.responses.BalanceResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.facades.TransactionsFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,11 @@ public class TransactionsController {
     @GetMapping
     List<TransactionsResponseDTO> findAll(){
         return  transactionsFacade.findAll();
+    }
+
+    @GetMapping("/balance")
+    public BalanceResponseDTO consultBalance(TransactionsResponseDTO requestDTO){
+        BalanceResponseDTO balanceResponseDTO  = transactionsFacade.consultBalance(requestDTO.getTransactionAmount());
+        return balanceResponseDTO;
     }
 }

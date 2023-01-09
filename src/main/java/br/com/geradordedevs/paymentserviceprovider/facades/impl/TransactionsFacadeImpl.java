@@ -1,6 +1,7 @@
 package br.com.geradordedevs.paymentserviceprovider.facades.impl;
 
 import br.com.geradordedevs.paymentserviceprovider.dtos.requests.TransactionsRequestDTO;
+import br.com.geradordedevs.paymentserviceprovider.dtos.responses.BalanceResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
 import br.com.geradordedevs.paymentserviceprovider.entities.TransactionsEntity;
@@ -11,6 +12,7 @@ import br.com.geradordedevs.paymentserviceprovider.services.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -25,7 +27,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     public static final String HIDDEN_CARD_NUMBER="****.***.";
 
     public  static String REDUCED_NUMBER = " ";
-
+    
     @Override
     public List<TransactionsResponseDTO> findAll() {
         return mapper.toDtoList(transactionsService.findAll());
@@ -35,6 +37,28 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     public TransactionsResponseDTO save(TransactionsRequestDTO request) {
          request.setCardNumber(hideNumber(request.getCardNumber()));
         return mapper.toDto(transactionsService.save(mapper.toEntity(request)));
+    }
+
+    @Override
+    public BalanceResponseDTO consultBalance(BigDecimal valor) {
+        BigDecimal waitingFunds = BigDecimal.ZERO;
+        BigDecimal available= BigDecimal.ZERO;
+        BalanceResponseDTO balanceResponseDTO = new BalanceResponseDTO();
+        for (TransactionsEntity transactionsEntity: transactionsService.findAll()) {
+            balanceResponseDTO.setBearerName(transactionsEntity.getBearerName());
+
+            if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
+                waitingFunds = waitingFunds.add(transactionsEntity.getTransactionAmount());
+            }
+
+            if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.DEBIT_CARD) {
+                available = available.add(transactionsEntity.getTransactionAmount());
+            }
+        }
+        balanceResponseDTO.setWaitingFunds(waitingFunds);
+        balanceResponseDTO.setAvailable(available);
+
+        return balanceResponseDTO;
     }
 
     public  String hideNumber(String num ){
