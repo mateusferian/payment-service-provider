@@ -16,11 +16,13 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     @Override
     public Iterable<TransactionsEntity> findAll() {
+        log.info("listing transactions");
         return transactionsRepository.findAll();
     }
 
     @Override
     public TransactionsEntity save(TransactionsEntity entity) {
+        log.info("registering a new transactions {}",entity);
         return transactionsRepository.save(entity);
     }
 }
