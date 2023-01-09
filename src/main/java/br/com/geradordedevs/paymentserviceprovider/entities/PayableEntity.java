@@ -17,7 +17,6 @@ import java.time.LocalDate;
 public class PayableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
     private String status;
     private LocalDate paymentDate;
