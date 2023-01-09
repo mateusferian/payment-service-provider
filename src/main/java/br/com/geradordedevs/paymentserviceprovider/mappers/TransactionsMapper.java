@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,22 +30,29 @@ public class TransactionsMapper {
     @Autowired
     private final ModelMapper mapper;
 
-
     public TransactionsResponseDTO toDto(TransactionsEntity entity){
         log.info("converting entity{} to dto", entity);
 
             PayableEntity payableEntity = new PayableEntity();
+            BigDecimal CREDIT_RATE = new BigDecimal("0.05");
+            BigDecimal DEBIT_RATE = new BigDecimal("0.03");
         if (entity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
+            log.info("if payment method is {}", entity.getPaymentMethod());
             payableEntity.setId(entity.getId());
             payableEntity.setPaymentDate(LocalDate.now().plusDays(30));
             payableEntity.setStatus(PaymentMethodEnum.CREDIT_CARD.getStatus());
             entity.setPayables(payableEntity);
+             BigDecimal CREDIT_DISCOUNT = entity.getTransactionAmount().multiply(CREDIT_RATE);//encontrando 5% do valor
+            entity.setTransactionAmount(entity.getTransactionAmount().subtract(CREDIT_DISCOUNT));//valor - 5
         }
         if (entity.getPaymentMethod() == PaymentMethodEnum.DEBIT_CARD) {
+            log.info("if payment method is{}", entity.getPaymentMethod());
             payableEntity.setId(entity.getId());
             payableEntity.setPaymentDate(LocalDate.now());
             payableEntity.setStatus(PaymentMethodEnum.DEBIT_CARD.getStatus());
             entity.setPayables(payableEntity);
+            BigDecimal DEBIT_DISCOUNT = entity.getTransactionAmount().multiply(DEBIT_RATE);//encontrando 3% do valor
+            entity.setTransactionAmount(entity.getTransactionAmount().subtract(DEBIT_DISCOUNT)); // valor -3
         }
 
         log.info("adding payable field {}", entity);
