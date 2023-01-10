@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -27,10 +28,13 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     public static final String HIDDEN_CARD_NUMBER="****.***.";
 
     public  static String REDUCED_NUMBER = " ";
-    
+
+
     @Override
-    public List<TransactionsResponseDTO> findAll() {
-        return mapper.toDtoList(transactionsService.findAll());
+    public List<TransactionsResponseDTO> findAllByName(String name) {
+        List<TransactionsResponseDTO> transactionsResponseDTOS = new ArrayList<>();
+         transactionsService.findAllByName(name).forEach(transactionsEntity -> transactionsResponseDTOS.add(mapper.toDto(transactionsEntity)));
+        return transactionsResponseDTOS;
     }
 
     @Override
@@ -40,11 +44,11 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     }
 
     @Override
-    public BalanceResponseDTO consultBalance(BigDecimal valor) {
+    public BalanceResponseDTO findByBalanceByName(String name) {
         BigDecimal waitingFunds = BigDecimal.ZERO;
         BigDecimal available= BigDecimal.ZERO;
         BalanceResponseDTO balanceResponseDTO = new BalanceResponseDTO();
-        for (TransactionsEntity transactionsEntity: transactionsService.findAll()) {
+        for (TransactionsEntity transactionsEntity: transactionsService.findByBalanceByName(name)) {
             balanceResponseDTO.setBearerName(transactionsEntity.getBearerName());
 
             if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {

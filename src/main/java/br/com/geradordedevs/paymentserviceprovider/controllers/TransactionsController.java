@@ -5,6 +5,8 @@ import br.com.geradordedevs.paymentserviceprovider.dtos.responses.BalanceRespons
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.facades.TransactionsFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,14 +23,15 @@ public class TransactionsController {
     public TransactionsResponseDTO save(@Valid @RequestBody TransactionsRequestDTO request){
         return  transactionsFacade.save(request);
     }
-    @GetMapping
-    List<TransactionsResponseDTO> findAll(){
-        return  transactionsFacade.findAll();
+
+    @GetMapping("/name")
+    public ResponseEntity<List<TransactionsResponseDTO>> findByName(@RequestParam String name){
+        return new ResponseEntity<>(transactionsFacade.findAllByName(name), HttpStatus.OK);
     }
 
-    @GetMapping("/balance")
-    public BalanceResponseDTO consultBalance(TransactionsResponseDTO requestDTO){
-        BalanceResponseDTO balanceResponseDTO  = transactionsFacade.consultBalance(requestDTO.getTransactionAmount());
-        return balanceResponseDTO;
+    @GetMapping("/balance/name")
+    public ResponseEntity<BalanceResponseDTO> consultBalance(@RequestParam String name){
+        return  new ResponseEntity<>(transactionsFacade.findByBalanceByName(name),HttpStatus.OK);
+
     }
 }

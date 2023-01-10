@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class TransactionsServiceImpl implements TransactionsService {
@@ -15,14 +17,19 @@ public class TransactionsServiceImpl implements TransactionsService {
     private TransactionsRepository transactionsRepository;
 
     @Override
-    public Iterable<TransactionsEntity> findAll() {
+    public List<TransactionsEntity> findAllByName(String name){
         log.info("listing transactions");
-        return transactionsRepository.findAll();
+        return transactionsRepository.findByNameContaining(name);
     }
 
     @Override
     public TransactionsEntity save(TransactionsEntity entity) {
         log.info("registering a new transactions {}",entity);
         return transactionsRepository.save(entity);
+    }
+
+    @Override
+    public List<TransactionsEntity> findByBalanceByName(String name) {
+        return transactionsRepository.findByNameContaining(name);
     }
 }
