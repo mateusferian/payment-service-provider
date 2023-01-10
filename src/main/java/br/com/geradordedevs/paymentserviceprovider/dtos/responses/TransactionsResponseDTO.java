@@ -23,7 +23,7 @@ public class TransactionsResponseDTO {
 
     private String cardNumber;
 
-    private String bearerName;
+    private String name;
 
     private String cardExpirationDate;
 

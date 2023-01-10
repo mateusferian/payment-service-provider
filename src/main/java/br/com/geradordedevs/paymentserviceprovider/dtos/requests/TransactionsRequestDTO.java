@@ -31,7 +31,7 @@ public class TransactionsRequestDTO {
 
     @NotBlank(message = "{white.field}")
     @Size(min = 2 ,max = 30, message = "{size.invalid}")
-    private String bearerName;
+    private String name;
 
     @NotBlank(message = "{white.field}")
     @Size(min = 5 ,max = 5, message = "{size.invalid}")

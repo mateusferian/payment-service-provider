@@ -26,7 +26,7 @@ public class TransactionsEntity {
 
     private String cardNumber;
 
-    private String bearerName;
+    private String name;
 
     private String cardExpirationDate;
 

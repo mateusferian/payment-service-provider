@@ -49,7 +49,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
         BigDecimal available= BigDecimal.ZERO;
         BalanceResponseDTO balanceResponseDTO = new BalanceResponseDTO();
         for (TransactionsEntity transactionsEntity: transactionsService.findByBalanceByName(name)) {
-            balanceResponseDTO.setBearerName(transactionsEntity.getBearerName());
+            balanceResponseDTO.setBearerName(transactionsEntity.getName());
 
             if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
                 waitingFunds = waitingFunds.add(transactionsEntity.getTransactionAmount());
