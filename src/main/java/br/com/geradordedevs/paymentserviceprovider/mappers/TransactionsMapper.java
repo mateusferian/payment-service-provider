@@ -5,6 +5,7 @@ import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsRe
 import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
 import br.com.geradordedevs.paymentserviceprovider.entities.TransactionsEntity;
 import br.com.geradordedevs.paymentserviceprovider.enums.PaymentMethodEnum;
+import br.com.geradordedevs.paymentserviceprovider.services.PayableService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -29,31 +30,16 @@ public class TransactionsMapper {
 
     @Autowired
     private final ModelMapper mapper;
+
+    @Autowired
+    private  final PayableService payableService;
+
     private static final BigDecimal CREDIT_RATE= new BigDecimal("0.05");
     private static final BigDecimal DEBIT_RATE = new BigDecimal("0.03");
 
     public TransactionsResponseDTO toDto(TransactionsEntity entity){
         log.info("converting entity{} to dto", entity);
 
-            PayableEntity payableEntity = new PayableEntity();
-        if (entity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
-            log.info("if payment method is {}", entity.getPaymentMethod());
-                payableEntity.setId(entity.getId());
-                payableEntity.setPaymentDate(LocalDate.now().plusDays(30));
-                payableEntity.setStatus(PaymentMethodEnum.CREDIT_CARD.getStatus());
-                entity.setPayables(payableEntity);
-                    BigDecimal CREDIT_DISCOUNT = entity.getTransactionAmount().multiply(CREDIT_RATE);//encontrando 5% do valor
-                entity.setTransactionAmount(entity.getTransactionAmount().subtract(CREDIT_DISCOUNT));//valor - 5
-        }
-        if (entity.getPaymentMethod() == PaymentMethodEnum.DEBIT_CARD) {
-            log.info("if payment method is{}", entity.getPaymentMethod());
-                payableEntity.setId(entity.getId());
-                payableEntity.setPaymentDate(LocalDate.now());
-                payableEntity.setStatus(PaymentMethodEnum.DEBIT_CARD.getStatus());
-                entity.setPayables(payableEntity);
-                    BigDecimal DEBIT_DISCOUNT = entity.getTransactionAmount().multiply(DEBIT_RATE);//encontrando 3% do valor
-                entity.setTransactionAmount(entity.getTransactionAmount().subtract(DEBIT_DISCOUNT)); // valor -3
-        }
         log.info("adding payable field {}", entity);
         return  mapper.map(entity, TransactionsResponseDTO.class);
     }
@@ -61,7 +47,28 @@ public class TransactionsMapper {
 
     public TransactionsEntity toEntity(TransactionsRequestDTO request){
         log.info("converting dto{} to entity", request);
-        return  mapper.map(request,TransactionsEntity.class);
+
+         BigDecimal CREDIT_RATE= new BigDecimal("0.05");
+         BigDecimal DEBIT_RATE = new BigDecimal("0.03");
+
+        TransactionsEntity transactionsEntity = mapper.map(request,TransactionsEntity.class);
+        PayableEntity payableEntity = payableService.savePayable(transactionsEntity.getPaymentMethod());
+
+        transactionsEntity.setPayables(payableEntity);
+
+        if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
+                BigDecimal CREDIT_DISCOUNT = transactionsEntity.getTransactionAmount().multiply(CREDIT_RATE);//encontrando 5% do valor
+                transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(CREDIT_DISCOUNT));//valor - 5
+
+        }
+
+        if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.DEBIT_CARD) {
+                BigDecimal DEBIT_DISCOUNT = transactionsEntity.getTransactionAmount().multiply(DEBIT_RATE);//encontrando 3% do valor
+                transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(DEBIT_DISCOUNT));
+
+        }
+
+        return  transactionsEntity;
     }
 
     public List<TransactionsResponseDTO> toDtoList(Iterable<TransactionsEntity> lista){
