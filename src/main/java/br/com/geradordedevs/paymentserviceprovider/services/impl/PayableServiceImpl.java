@@ -19,7 +19,7 @@ public class PayableServiceImpl implements PayableService {
 
     @Override
     public PayableEntity savePayable(PaymentMethodEnum paymentMethodEnum) {
-
+            log.info("creating payable with payment method: {}",paymentMethodEnum);
             PayableEntity payableEntity = new PayableEntity();
         if (paymentMethodEnum == PaymentMethodEnum.CREDIT_CARD) {
 
