@@ -29,7 +29,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     }
 
     @Override
-    public List<TransactionsEntity> findByBalanceByName(String name) {
+    public List<TransactionsEntity> findBalanceByName(String name) {
         log.info("name bearer balance listing {}",name);
         return transactionsRepository.findByNameContaining(name);
     }

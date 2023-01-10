@@ -31,7 +31,7 @@ public class TransactionsController {
 
     @GetMapping("/balance/name")
     public ResponseEntity<BalanceResponseDTO> consultBalance(@RequestParam String name){
-        return  new ResponseEntity<>(transactionsFacade.findByBalanceByName(name),HttpStatus.OK);
+        return  new ResponseEntity<>(transactionsFacade.findBalanceByName(name),HttpStatus.OK);
 
     }
 }

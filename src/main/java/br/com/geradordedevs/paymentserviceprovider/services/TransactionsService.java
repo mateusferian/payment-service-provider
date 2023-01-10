@@ -8,5 +8,5 @@ public interface TransactionsService {
 
     List<TransactionsEntity> findAllByName(String name);
     TransactionsEntity save(TransactionsEntity entity);
-    List<TransactionsEntity> findByBalanceByName(String name);
+    List<TransactionsEntity> findBalanceByName(String name);
 }

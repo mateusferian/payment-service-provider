@@ -12,6 +12,6 @@ public interface TransactionsFacade {
 
     List<TransactionsResponseDTO> findAllByName(String name);
     TransactionsResponseDTO save(TransactionsRequestDTO request);
-    BalanceResponseDTO findByBalanceByName(String name);
+    BalanceResponseDTO findBalanceByName(String name);
 
 }

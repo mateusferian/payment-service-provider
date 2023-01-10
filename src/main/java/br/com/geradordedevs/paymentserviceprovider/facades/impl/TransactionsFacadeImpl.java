@@ -43,12 +43,12 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     }
 
     @Override
-    public BalanceResponseDTO findByBalanceByName(String name) {
+    public BalanceResponseDTO findBalanceByName(String name) {
         BigDecimal waitingFunds = BigDecimal.ZERO;
         BigDecimal available= BigDecimal.ZERO;
 
         BalanceResponseDTO balanceResponseDTO = new BalanceResponseDTO();
-        for (TransactionsEntity transactionsEntity: transactionsService.findByBalanceByName(name)) {
+        for (TransactionsEntity transactionsEntity: transactionsService.findBalanceByName(name)) {
             balanceResponseDTO.setBearerName(transactionsEntity.getName());
 
             if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
