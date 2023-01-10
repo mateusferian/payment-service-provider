@@ -20,7 +20,7 @@ public class PayableServiceImpl implements PayableService {
     @Override
     public PayableEntity savePayable(PaymentMethodEnum paymentMethodEnum) {
 
-        PayableEntity payableEntity = new PayableEntity();
+            PayableEntity payableEntity = new PayableEntity();
         if (paymentMethodEnum == PaymentMethodEnum.CREDIT_CARD) {
                 payableEntity.setPaymentDate(LocalDate.now().plusDays(30));
                 payableEntity.setStatus(PaymentMethodEnum.CREDIT_CARD.getStatus());
@@ -30,7 +30,6 @@ public class PayableServiceImpl implements PayableService {
                 payableEntity.setPaymentDate(LocalDate.now());
                 payableEntity.setStatus(PaymentMethodEnum.DEBIT_CARD.getStatus());
         }
-
         return payableRepository.save(payableEntity);
     }
 }
