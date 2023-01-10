@@ -41,4 +41,15 @@ public class TransactionsRequestDTO {
     @Max(value = 999, message = "{transaction.above.the.maximum}")
     private  int cvv;
 
+    @Override
+    public String toString() {
+        return "TransactionsRequestDTO{" +
+                "transactionAmount=" + transactionAmount +
+                ", transactionDescription='" + transactionDescription + '\'' +
+                ", paymentMethod=" + paymentMethod +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", cardExpirationDate='" + cardExpirationDate + '\'' +
+                '}';
+    }
 }

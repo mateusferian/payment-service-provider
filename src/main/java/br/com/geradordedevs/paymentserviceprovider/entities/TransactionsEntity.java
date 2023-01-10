@@ -34,4 +34,18 @@ public class TransactionsEntity {
 
     @ManyToOne
     private PayableEntity payables;
+
+    @Override
+    public String toString() {
+        return "TransactionsEntity{" +
+                "id=" + id +
+                ", transactionAmount=" + transactionAmount +
+                ", transactionDescription='" + transactionDescription + '\'' +
+                ", paymentMethod=" + paymentMethod +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", cardExpirationDate='" + cardExpirationDate + '\'' +
+                ", payables=" + payables +
+                '}';
+    }
 }
