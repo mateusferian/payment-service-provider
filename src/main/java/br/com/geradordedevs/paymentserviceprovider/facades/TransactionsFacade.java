@@ -11,9 +11,7 @@ import java.util.List;
 public interface TransactionsFacade {
 
     List<TransactionsResponseDTO> findAllByName(String name);
-
     TransactionsResponseDTO save(TransactionsRequestDTO request);
-
-     BalanceResponseDTO findByBalanceByName(String name);
+    BalanceResponseDTO findByBalanceByName(String name);
 
 }

@@ -29,7 +29,6 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
 
     public  static String REDUCED_NUMBER = " ";
 
-
     @Override
     public List<TransactionsResponseDTO> findAllByName(String name) {
         List<TransactionsResponseDTO> transactionsResponseDTOS = new ArrayList<>();
@@ -47,6 +46,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     public BalanceResponseDTO findByBalanceByName(String name) {
         BigDecimal waitingFunds = BigDecimal.ZERO;
         BigDecimal available= BigDecimal.ZERO;
+
         BalanceResponseDTO balanceResponseDTO = new BalanceResponseDTO();
         for (TransactionsEntity transactionsEntity: transactionsService.findByBalanceByName(name)) {
             balanceResponseDTO.setBearerName(transactionsEntity.getName());
@@ -59,6 +59,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
                 available = available.add(transactionsEntity.getTransactionAmount());
             }
         }
+
         balanceResponseDTO.setWaitingFunds(waitingFunds);
         balanceResponseDTO.setAvailable(available);
 
