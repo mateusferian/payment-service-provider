@@ -27,7 +27,5 @@ public class TransactionsResponseDTO {
 
     private String cardExpirationDate;
 
-    private  int cvv;
-
     private PayableResponseDTO payables;
 }
