@@ -39,44 +39,26 @@ public class TransactionsMapper {
 
     public TransactionsResponseDTO toDto(TransactionsEntity entity){
         log.info("converting entity{} to dto", entity);
-
-        log.info("adding payable field {}", entity);
         return  mapper.map(entity, TransactionsResponseDTO.class);
     }
-
 
     public TransactionsEntity toEntity(TransactionsRequestDTO request){
         log.info("converting dto{} to entity", request);
 
-         BigDecimal CREDIT_RATE= new BigDecimal("0.05");
-         BigDecimal DEBIT_RATE = new BigDecimal("0.03");
-
         TransactionsEntity transactionsEntity = mapper.map(request,TransactionsEntity.class);
         PayableEntity payableEntity = payableService.savePayable(transactionsEntity.getPaymentMethod());
-
         transactionsEntity.setPayables(payableEntity);
 
         if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
                 BigDecimal CREDIT_DISCOUNT = transactionsEntity.getTransactionAmount().multiply(CREDIT_RATE);//encontrando 5% do valor
                 transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(CREDIT_DISCOUNT));//valor - 5
-
         }
 
         if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.DEBIT_CARD) {
                 BigDecimal DEBIT_DISCOUNT = transactionsEntity.getTransactionAmount().multiply(DEBIT_RATE);//encontrando 3% do valor
                 transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(DEBIT_DISCOUNT));
-
         }
 
         return  transactionsEntity;
-    }
-
-    public List<TransactionsResponseDTO> toDtoList(Iterable<TransactionsEntity> lista){
-        log.info("converting entity list{} to dto list", lista);
-        List<TransactionsEntity> resultado = new ArrayList<>();
-        lista.forEach(resultado::add);
-        return  resultado.stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
     }
 }
