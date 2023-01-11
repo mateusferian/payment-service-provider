@@ -40,7 +40,7 @@ public class PayableServiceImplTest {
     }
 
     @Test
-    public  void  savePayablesWipingTheCardInTheFromMethodCredit() {
+    public  void  savePayableWipingTheCardInTheFromMethodCredit() {
         assertEquals(returnObjectPayableEntityMethodCredit(), payableService.savePayable(PaymentMethodEnum.CREDIT_CARD));
     }
 

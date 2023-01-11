@@ -57,8 +57,8 @@ public class TransactionsFacadeImpTest {
     private  final  int MOCK_CVV = 888;
 
     private  final Long MOCK_ID_PAYABLE = 1l;
-    private  final  String STATUS= PaymentMethodEnum.DEBIT_CARD.getStatus();
-    private  final  LocalDate PAYMENT_DATE= LocalDate.now();
+    private  final  String MOCK_STATUS= PaymentMethodEnum.DEBIT_CARD.getStatus();
+    private  final  LocalDate MOCK_ID_PAYMENT_DATE= LocalDate.now();
 
     @Before
     public  void stupMock(){
@@ -78,9 +78,9 @@ public class TransactionsFacadeImpTest {
         return  new TransactionsEntity(MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,
                 MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,returnObjectPayableEntity());
     }
-    
+
     private PayableEntity returnObjectPayableEntity (){
-        return  new PayableEntity(PaymentMethodEnum.DEBIT_CARD.getStatus(),LocalDate.now());
+        return  new PayableEntity(MOCK_STATUS,MOCK_ID_PAYMENT_DATE);
     }
 
     private TransactionsRequestDTO returnObjectTransactionsRequestDTO(){

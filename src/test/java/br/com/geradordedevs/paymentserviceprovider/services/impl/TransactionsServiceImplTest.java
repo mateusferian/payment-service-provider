@@ -42,14 +42,13 @@ public class TransactionsServiceImplTest {
     private  final  int MOCK_CVV = 888;
 
     private  final Long MOCK_ID_PAYABLE = 1l;
-    private  final  String STATUS= PaymentMethodEnum.DEBIT_CARD.getStatus();
-    private  final LocalDate PAYMENT_DATE= LocalDate.now();
-
+    private  final  String MOCK_STATUS= PaymentMethodEnum.DEBIT_CARD.getStatus();
+    private  final LocalDate MOCK_PAYMENT_DATE= LocalDate.now();
 
     @Before
     public void setupMock(){
         MockitoAnnotations.openMocks(this);
-        when(transactionsRepository.save(returnObjectOfficeEntity())).thenReturn(returnObjectOfficeEntity());
+        when(transactionsRepository.save(returnObjectTransactionEntity())).thenReturn(returnObjectTransactionEntity());
         when(transactionsRepository.findByNameContaining(MOCK_NAME)).thenReturn(returnListAllTransactionEntity());
     }
 
@@ -60,7 +59,7 @@ public class TransactionsServiceImplTest {
 
     @Test
     public void saveTransactionMustReturnOk(){
-        assertEquals(returnObjectOfficeEntity(),transactionsService.save(returnObjectOfficeEntity()));
+        assertEquals(returnObjectTransactionEntity(),transactionsService.save(returnObjectTransactionEntity()));
     }
 
     @Test
@@ -70,28 +69,26 @@ public class TransactionsServiceImplTest {
 
     private List<TransactionsEntity> returnListAllTransactionEntity() {
         List<TransactionsEntity> transactionsEntityList = new ArrayList<>();
-        transactionsEntityList.add(returnObjectOfficeEntityId());
+        transactionsEntityList.add(returnObjectTransactionEntityWithId());
 
         return transactionsEntityList;
     }
 
-
-
-    private TransactionsEntity returnObjectOfficeEntity(){
+    private TransactionsEntity returnObjectTransactionEntity(){
         return  new TransactionsEntity(MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,
                 MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV, returnObjectPayableEntity());
     }
 
     private PayableEntity returnObjectPayableEntity(){
-        return  new PayableEntity(PaymentMethodEnum.DEBIT_CARD.getStatus(),LocalDate.now());
+        return  new PayableEntity(MOCK_STATUS,MOCK_PAYMENT_DATE);
     }
 
-    private TransactionsEntity returnObjectOfficeEntityId(){
+    private TransactionsEntity returnObjectTransactionEntityWithId(){
         return  new TransactionsEntity(MOCK_ID,MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,
-                MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,  returnObjectPayableEntityId());
+                MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,  returnObjectPayableEntityWithId());
     }
 
-    private PayableEntity returnObjectPayableEntityId(){
-        return  new PayableEntity(MOCK_ID_PAYABLE,PaymentMethodEnum.DEBIT_CARD.getStatus(),LocalDate.now());
+    private PayableEntity returnObjectPayableEntityWithId(){
+        return  new PayableEntity(MOCK_ID_PAYABLE,MOCK_STATUS,MOCK_PAYMENT_DATE);
     }
 }
