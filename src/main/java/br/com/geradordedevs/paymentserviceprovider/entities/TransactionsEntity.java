@@ -35,6 +35,18 @@ public class TransactionsEntity {
     @ManyToOne
     private PayableEntity payables;
 
+
+    public TransactionsEntity(BigDecimal transactionAmount, String transactionDescription, PaymentMethodEnum paymentMethod, String cardNumber, String name, String cardExpirationDate, int cvv, PayableEntity payables) {
+        this.transactionAmount = transactionAmount;
+        this.transactionDescription = transactionDescription;
+        this.paymentMethod = paymentMethod;
+        this.cardNumber = cardNumber;
+        this.name = name;
+        this.cardExpirationDate = cardExpirationDate;
+        this.cvv = cvv;
+        this.payables = payables;
+    }
+
     @Override
     public String toString() {
         return "TransactionsEntity{" +

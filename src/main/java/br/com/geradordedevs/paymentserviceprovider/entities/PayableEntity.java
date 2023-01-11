@@ -22,4 +22,8 @@ public class PayableEntity {
     private String status;
     private LocalDate paymentDate;
 
+    public PayableEntity(String status, LocalDate paymentDate) {
+        this.status = status;
+        this.paymentDate = paymentDate;
+    }
 }
