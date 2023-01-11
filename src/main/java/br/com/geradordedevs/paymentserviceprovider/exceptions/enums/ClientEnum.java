@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public enum PayableEnum {
+public enum ClientEnum {
 
     USER_NOT_FOUD("USER_NOT_FOUD","usuario não encontrado",401);
 
