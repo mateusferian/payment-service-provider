@@ -30,15 +30,15 @@ public class TransactionsRequestDTO {
     private String cardNumber;
 
     @NotBlank(message = "{white.field}")
-    @Size(min = 2 ,max = 30, message = "{size.invalid}")
+    @Size(min = 3 ,max = 30, message = "{size.invalid}")
     private String name;
 
     @NotBlank(message = "{white.field}")
     @Size(min = 5 ,max = 5, message = "{size.invalid}")
     private String cardExpirationDate;
 
-    @NotNull(message = "{null.field}")
     @Max(value = 999, message = "{transaction.above.the.maximum}")
+    @Min(value = 1, message = "{transaction.above.the.minimum}")
     private  int cvv;
 
     @Override
