@@ -7,9 +7,7 @@ import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsRe
 import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
 import br.com.geradordedevs.paymentserviceprovider.entities.TransactionsEntity;
 import br.com.geradordedevs.paymentserviceprovider.enums.PaymentMethodEnum;
-import br.com.geradordedevs.paymentserviceprovider.facades.impl.TransactionsFacadeImpl;
 import br.com.geradordedevs.paymentserviceprovider.mappers.TransactionsMapper;
-import br.com.geradordedevs.paymentserviceprovider.repositories.TransactionsRepository;
 import br.com.geradordedevs.paymentserviceprovider.services.PayableService;
 import br.com.geradordedevs.paymentserviceprovider.services.TransactionsService;
 import org.junit.Before;
@@ -23,8 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -32,7 +28,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class TransactionsFacadeImpTest {
+public class TransactionsFacadeImplTest {
 
     @InjectMocks
     private TransactionsFacadeImpl transactionsFacade;
@@ -58,7 +54,7 @@ public class TransactionsFacadeImpTest {
 
     private  final Long MOCK_ID_PAYABLE = 1l;
     private  final  String MOCK_STATUS= PaymentMethodEnum.DEBIT_CARD.getStatus();
-    private  final  LocalDate MOCK_ID_PAYMENT_DATE= LocalDate.now();
+    private  final  LocalDate MOCK_PAYMENT_DATE= LocalDate.now();
 
     @Before
     public  void stupMock(){
@@ -80,7 +76,7 @@ public class TransactionsFacadeImpTest {
     }
 
     private PayableEntity returnObjectPayableEntity (){
-        return  new PayableEntity(MOCK_STATUS,MOCK_ID_PAYMENT_DATE);
+        return  new PayableEntity(MOCK_STATUS,MOCK_PAYMENT_DATE);
     }
 
     private TransactionsRequestDTO returnObjectTransactionsRequestDTO(){
@@ -94,6 +90,6 @@ public class TransactionsFacadeImpTest {
     }
 
     private PayableResponseDTO returnObjectPayableResponseDTO (){
-        return  new PayableResponseDTO(MOCK_STATUS,MOCK_ID_PAYMENT_DATE);
+        return  new PayableResponseDTO(MOCK_STATUS,MOCK_PAYMENT_DATE);
     }
 }
