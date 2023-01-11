@@ -8,10 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,5 +43,16 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
                 .map(error -> new ErrorObject(error.getDefaultMessage(), error.getField(), error.getRejectedValue()))
                 .collect(Collectors.toList());
     }
+
+    @ResponseBody
+    @ExceptionHandler(ClientException.class)
+    ResponseEntity<ErrorResponse> handlerClientException(ClientException ex){
+        return  ResponseEntity.status(ex.getError().getStatusCode())
+                .body((new ErrorResponse(
+                        Instant.now().toEpochMilli(),
+                        ex.getError().getStatusCode(),
+                        ex.getError().getCode(),
+                        ex.getMessage(), new ArrayList<>())));
     }
+}
 
