@@ -28,7 +28,3 @@ dependencies {
 	implementation 'org.jacoco:org.jacoco.agent:0.7.9'
 
 }
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
