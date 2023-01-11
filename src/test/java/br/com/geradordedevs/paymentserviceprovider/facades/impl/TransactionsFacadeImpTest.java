@@ -90,6 +90,10 @@ public class TransactionsFacadeImpTest {
 
     private TransactionsResponseDTO returnObjectTransactionsResponseDTO(){
         return  new TransactionsResponseDTO(MOCK_ID,MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,
-                MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,new PayableResponseDTO(PaymentMethodEnum.DEBIT_CARD.getStatus(),LocalDate.now()));
+                MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,returnObjectPayableResponseDTO());
+    }
+
+    private PayableResponseDTO returnObjectPayableResponseDTO (){
+        return  new PayableResponseDTO(MOCK_STATUS,MOCK_ID_PAYMENT_DATE);
     }
 }
