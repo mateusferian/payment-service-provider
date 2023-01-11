@@ -41,7 +41,7 @@ public class TransactionsControllerTest {
     private final BigDecimal MOCK_TRAMSACTION_AMOUNT = new BigDecimal(100);
     private  final String MOCK_TRANSACTION_DESCRIPTION = "fazendo teste unitario com tudo feito e funcionando corretamente";
     private  final PaymentMethodEnum MOCK_PAYMENT_METHOD_ENUM = PaymentMethodEnum.DEBIT_CARD;
-    private  final  String MOCK_CARD_NUMBER = "12345678";
+    private  final  String MOCK_CARD_NUMBER = "1234567890123456789";
     private  final  String MOCK_NAME = "carlos";
     private  final  String MOCK_CARD_EXPIRATION_DATE = "10/22";
     private  final  int MOCK_CVV = 888;
@@ -87,12 +87,12 @@ public class TransactionsControllerTest {
     //cardNumber
     private TransactionsRequestDTO returnTransactionsWithCardNumberMin(){
         return  new TransactionsRequestDTO( MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,
-                MOCK_PAYMENT_METHOD_ENUM,"1",MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV);
+                MOCK_PAYMENT_METHOD_ENUM,"123456789012345678",MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV);
     }
 
     private TransactionsRequestDTO returnTransactionsWithCardNumberMax(){
         return  new TransactionsRequestDTO( MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,
-                MOCK_PAYMENT_METHOD_ENUM,"12345678901234567890123456789123456789011",MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV);
+                MOCK_PAYMENT_METHOD_ENUM,"12345678901234567890",MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV);
     }
 
     private TransactionsRequestDTO returnoTransactionsWithCardNumberNull(){

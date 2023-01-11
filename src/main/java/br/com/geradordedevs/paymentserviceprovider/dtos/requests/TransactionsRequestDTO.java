@@ -26,7 +26,7 @@ public class TransactionsRequestDTO {
     private PaymentMethodEnum paymentMethod;
 
     @NotBlank(message = "{white.field}")
-    @Size(min = 2 ,max = 40, message = "{size.invalid}")
+    @Size(min = 19 ,max = 19, message = "{transaction.card.number}")
     private String cardNumber;
 
     @NotBlank(message = "{white.field}")

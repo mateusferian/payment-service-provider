@@ -25,7 +25,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     @Autowired
     private TransactionsService transactionsService;
 
-    public static final String HIDDEN_CARD_NUMBER="****.***.";
+    public static final String HIDDEN_CARD_NUMBER="****.****.****.";
 
     public  static String REDUCED_NUMBER = " ";
 
