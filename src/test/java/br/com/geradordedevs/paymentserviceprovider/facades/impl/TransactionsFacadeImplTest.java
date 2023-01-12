@@ -2,6 +2,7 @@ package br.com.geradordedevs.paymentserviceprovider.facades.impl;
 
 
 import br.com.geradordedevs.paymentserviceprovider.dtos.requests.TransactionsRequestDTO;
+import br.com.geradordedevs.paymentserviceprovider.dtos.responses.BalanceResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.PayableResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
@@ -21,6 +22,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -42,7 +45,6 @@ public class TransactionsFacadeImplTest {
     @Mock
     private TransactionsMapper mapper;
 
-
     private  final Long MOCK_ID = 1l;
     private final BigDecimal MOCK_TRAMSACTION_AMOUNT = new BigDecimal(100);
     private  final String MOCK_TRANSACTION_DESCRIPTION = "fazendo teste unitario com tudo feito e funcionando corretamente";
@@ -60,6 +62,7 @@ public class TransactionsFacadeImplTest {
     public  void stupMock(){
         MockitoAnnotations.openMocks(this);
         when(transactionsService.save(returnObjectTransactionsEntity())).thenReturn(returnObjectTransactionsEntity());
+        when(transactionsService.findAllByName(MOCK_NAME)).thenReturn(returnListAllTransactionEntity());
 
         when(mapper.toDto(returnObjectTransactionsEntity())).thenReturn(returnObjectTransactionsResponseDTO());
         when(mapper.toEntity(returnObjectTransactionsRequestDTO())).thenReturn(returnObjectTransactionsEntity());
@@ -68,6 +71,23 @@ public class TransactionsFacadeImplTest {
     @Test
     public void saveTransactionsMustReturnOk() throws Exception{
       assertEquals(returnObjectTransactionsResponseDTO(),transactionsFacade.save(returnObjectTransactionsRequestDTO()));
+    }
+
+    @Test
+    public void findAllByNameTransactionsMustReturnOk(){
+        assertEquals(returnListAllTransaaactionResponseDTO(),transactionsFacade.findAllByName(MOCK_NAME));
+    }
+
+    private List<TransactionsEntity> returnListAllTransactionEntity() {
+        List<TransactionsEntity> listEntity = new ArrayList<>();
+        listEntity.add(returnObjectTransactionEntityWithId());
+        return listEntity;
+    }
+
+    private List<TransactionsResponseDTO> returnListAllTransaaactionResponseDTO() {
+        List<TransactionsResponseDTO> listDto = new ArrayList<>();
+        listDto.add(returnObjectTransactionsResponseDTO());
+        return listDto;
     }
 
     private TransactionsEntity returnObjectTransactionsEntity(){
@@ -91,5 +111,14 @@ public class TransactionsFacadeImplTest {
 
     private PayableResponseDTO returnObjectPayableResponseDTO (){
         return  new PayableResponseDTO(MOCK_STATUS,MOCK_PAYMENT_DATE);
+    }
+
+    private TransactionsEntity returnObjectTransactionEntityWithId(){
+        return  new TransactionsEntity(null,MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,
+                MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,  returnObjectPayableEntityWithId());
+    }
+
+    private PayableEntity returnObjectPayableEntityWithId(){
+        return  new PayableEntity(null,MOCK_STATUS,MOCK_PAYMENT_DATE);
     }
 }
