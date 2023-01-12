@@ -26,8 +26,6 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
 
     public static final String HIDDEN_CARD_NUMBER="****.****.****.";
 
-    public  static String REDUCED_NUMBER = " ";
-
     @Override
     public List<TransactionsResponseDTO> findAllByName(String name) {
         List<TransactionsResponseDTO> transactionsResponseDTOS = new ArrayList<>();
@@ -66,7 +64,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
     }
 
     public  String hideNumber(String num ){
-        REDUCED_NUMBER = num.substring(num.length() -4);
-        return HIDDEN_CARD_NUMBER+REDUCED_NUMBER;
+        String reducedNumber = num.substring(num.length() -4);
+        return HIDDEN_CARD_NUMBER+reducedNumber;
     }
 }
