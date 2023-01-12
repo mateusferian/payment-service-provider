@@ -7,7 +7,7 @@ of each type of transaction and create the amounts to be paid for these transact
 
 what do you need to run the project?
  * [Gradle](https://gradle.org/)
- * [MySQL](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+ * [MySQL](https://www.mysql.com/)
  * [JDK-17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
  * [Docker Compose](https://docs.docker.com/compose/)
 
