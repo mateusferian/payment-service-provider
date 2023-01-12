@@ -21,7 +21,7 @@ public class PayableEntity {
     private  Long id;
 
     private String status;
-    
+
     private LocalDate paymentDate;
 
     public PayableEntity(String status, LocalDate paymentDate) {

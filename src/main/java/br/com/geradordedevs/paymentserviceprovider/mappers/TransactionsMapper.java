@@ -41,13 +41,13 @@ public class TransactionsMapper {
         transactionsEntity.setPayables(payableEntity);
 
         if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.CREDIT_CARD) {
-                BigDecimal creditDiscount = transactionsEntity.getTransactionAmount().multiply(CREDIT_RATE);//encontrando 5% do valor
-                transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(creditDiscount));//valor - 5
+            BigDecimal creditDiscount = transactionsEntity.getTransactionAmount().multiply(CREDIT_RATE);//encontrando 5% do valor
+            transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(creditDiscount));//valor - 5
         }
 
         if (transactionsEntity.getPaymentMethod() == PaymentMethodEnum.DEBIT_CARD) {
-                BigDecimal debitDiscount = transactionsEntity.getTransactionAmount().multiply(DEBIT_RATE);//encontrando 3% do valor
-                transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(debitDiscount));
+            BigDecimal debitDiscount = transactionsEntity.getTransactionAmount().multiply(DEBIT_RATE);//encontrando 3% do valor
+            transactionsEntity.setTransactionAmount(transactionsEntity.getTransactionAmount().subtract(debitDiscount));
         }
 
         return  transactionsEntity;
