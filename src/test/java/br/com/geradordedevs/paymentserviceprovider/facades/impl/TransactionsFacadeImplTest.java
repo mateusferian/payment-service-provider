@@ -62,7 +62,9 @@ public class TransactionsFacadeImplTest {
     public  void stupMock(){
         MockitoAnnotations.openMocks(this);
         when(transactionsService.save(returnObjectTransactionsEntity())).thenReturn(returnObjectTransactionsEntity());
-        when(transactionsService.findAllByName(MOCK_NAME)).thenReturn(returnListAllTransactionEntity());
+        when(transactionsService.findAllByName(MOCK_NAME)).thenReturn(retuaarnListAllTransactionEntity());
+        when(transactionsService.findBalanceByName(MOCK_NAME)).thenReturn(returnListAllWithTwoPaymentMethodsTransactionEntity());
+
 
         when(mapper.toDto(returnObjectTransactionsEntity())).thenReturn(returnObjectTransactionsResponseDTO());
         when(mapper.toEntity(returnObjectTransactionsRequestDTO())).thenReturn(returnObjectTransactionsEntity());
@@ -78,9 +80,36 @@ public class TransactionsFacadeImplTest {
         assertEquals(returnListAllTransaaactionResponseDTO(),transactionsFacade.findAllByName(MOCK_NAME));
     }
 
-    private List<TransactionsEntity> returnListAllTransactionEntity() {
+    @Test
+    public void findAllBalanceByNameInTheDebitMethodMustReturnOk(){
+        assertEquals(findBalanceByName(),transactionsFacade.findBalanceByName(MOCK_NAME));
+    }
+
+    @Test
+    public void findAllBalanceByNamasaseInTheDebitMethodMustReturnOk(){
+        assertEquals(findBalanceByName(),transactionsFacade.findBalanceByName(MOCK_NAME));
+    }
+
+    public BalanceResponseDTO findBalanceByName() {
+
+        BigDecimal waitingFunds = BigDecimal.ZERO;
+            BigDecimal available = BigDecimal.ZERO;
+
+        available = available.add(MOCK_TRAMSACTION_AMOUNT);
+            waitingFunds = waitingFunds.add(MOCK_TRAMSACTION_AMOUNT);
+
+        return  new BalanceResponseDTO(MOCK_NAME,available,waitingFunds);
+    }
+
+    private List<TransactionsEntity> retuaarnListAllTransactionEntity() {
         List<TransactionsEntity> listEntity = new ArrayList<>();
         listEntity.add(returnObjectTransactionEntityWithId());
+        return listEntity;
+    }
+    private List<TransactionsEntity> returnListAllWithTwoPaymentMethodsTransactionEntity() {
+        List<TransactionsEntity> listEntity = new ArrayList<>();
+        listEntity.add(returnObjectTransactionEntityWithId());
+        listEntity.add(returnObjectTransactionEntityWithIdInCreditMethod());
         return listEntity;
     }
 
@@ -115,6 +144,10 @@ public class TransactionsFacadeImplTest {
 
     private TransactionsEntity returnObjectTransactionEntityWithId(){
         return  new TransactionsEntity(null,MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,
+                MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,  returnObjectPayableEntityWithId());
+    }
+    private TransactionsEntity returnObjectTransactionEntityWithIdInCreditMethod(){
+        return  new TransactionsEntity(null,MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,PaymentMethodEnum.CREDIT_CARD,MOCK_CARD_NUMBER,
                 MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,  returnObjectPayableEntityWithId());
     }
 
