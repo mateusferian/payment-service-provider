@@ -1,6 +1,6 @@
 package br.com.geradordedevs.paymentserviceprovider.exceptions;
 
-import br.com.geradordedevs.paymentserviceprovider.exceptions.enums.ClientEnum;
+import br.com.geradordedevs.paymentserviceprovider.exceptions.enums.UserEnum;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,10 +10,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class UserException extends  PayableServiceProviderException{
 
-    public UserException(ClientEnum error){
+    public UserException(UserEnum error){
         super(error.getMessage());
         this.error =  error;
     }
 
-    private  final ClientEnum error;
+    private  final UserEnum error;
 }
