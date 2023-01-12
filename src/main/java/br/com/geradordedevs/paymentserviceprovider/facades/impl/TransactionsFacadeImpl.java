@@ -3,7 +3,6 @@ package br.com.geradordedevs.paymentserviceprovider.facades.impl;
 import br.com.geradordedevs.paymentserviceprovider.dtos.requests.TransactionsRequestDTO;
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.BalanceResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsResponseDTO;
-import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
 import br.com.geradordedevs.paymentserviceprovider.entities.TransactionsEntity;
 import br.com.geradordedevs.paymentserviceprovider.enums.PaymentMethodEnum;
 import br.com.geradordedevs.paymentserviceprovider.facades.TransactionsFacade;

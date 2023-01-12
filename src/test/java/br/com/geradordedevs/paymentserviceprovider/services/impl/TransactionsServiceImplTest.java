@@ -4,7 +4,6 @@ import br.com.geradordedevs.paymentserviceprovider.entities.PayableEntity;
 import br.com.geradordedevs.paymentserviceprovider.entities.TransactionsEntity;
 import br.com.geradordedevs.paymentserviceprovider.enums.PaymentMethodEnum;
 import br.com.geradordedevs.paymentserviceprovider.repositories.TransactionsRepository;
-import br.com.geradordedevs.paymentserviceprovider.services.TransactionsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
