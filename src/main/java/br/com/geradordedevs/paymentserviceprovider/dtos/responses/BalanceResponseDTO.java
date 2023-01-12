@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 public class BalanceResponseDTO {
 
     private  String bearerName;
+
     private BigDecimal available;
+
     private BigDecimal waitingFunds;
 }

@@ -13,6 +13,7 @@ public class PayableResponseDTO {
 
 
     private String status;
+
     private LocalDate paymentDate;
 
 }
