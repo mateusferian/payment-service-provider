@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum UserEnum {
 
-    USER_NOT_FOUD("USER_NOT_FOUD","usuario não encontrado",401);
+    USER_NOT_FOUD("USER_NOT_FOUD","usuario não encontrado",404);
 
     private  String code;
     private String message;
