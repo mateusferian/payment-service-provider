@@ -32,7 +32,7 @@ public class TransactionsEntity {
 
     private  int cvv;
 
-    @ManyToOne
+    @OneToOne
     private PayableEntity payables;
 
 
