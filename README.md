@@ -11,7 +11,7 @@ what do you need to run the project?
  * [JDK-17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
  * [Docker Compose](https://docs.docker.com/compose/)
 
-### How can we download the application?
+### how can we download the application?
 #### SSH
 ```
 git@gitlab.com:Mateusferian/payment-service-provider.git
@@ -44,7 +44,7 @@ Open your browser and go to the following link:
 ```
 http://localhost:8080/swagger-ui.html#/
 ```
-### Technologies used
+### technologies used
 
 * [Gradle](https://gradle.org/) - from mobile apps to microservices, from small businesses to large enterprises, Gradle helps teams build, automate, and deliver better software, faster.
 ####
