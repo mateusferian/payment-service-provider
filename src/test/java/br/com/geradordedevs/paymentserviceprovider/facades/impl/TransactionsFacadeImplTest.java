@@ -40,9 +40,6 @@ public class TransactionsFacadeImplTest {
     private TransactionsService transactionsService;
 
     @Mock
-    private PayableService payableService;
-
-    @Mock
     private TransactionsMapper mapper;
 
     private  final Long MOCK_ID = 1l;
@@ -54,16 +51,16 @@ public class TransactionsFacadeImplTest {
     private  final  String MOCK_CARD_EXPIRATION_DATE = "10/22";
     private  final  int MOCK_CVV = 888;
 
-    private  final Long MOCK_ID_PAYABLE = 1l;
     private  final  String MOCK_STATUS= PaymentMethodEnum.DEBIT_CARD.getStatus();
     private  final  LocalDate MOCK_PAYMENT_DATE= LocalDate.now();
 
     @Before
     public  void stupMock(){
         MockitoAnnotations.openMocks(this);
+
         when(transactionsService.save(returnObjectTransactionsEntity())).thenReturn(returnObjectTransactionsEntity());
-        when(transactionsService.findAllByName(MOCK_NAME)).thenReturn(retuaarnListAllTransactionEntity());
-        when(transactionsService.findBalanceByName(MOCK_NAME)).thenReturn(returnListAllWithTwoPaymentMethodsTransactionEntity());
+        when(transactionsService.findAllByName(MOCK_NAME)).thenReturn(returnListAllTransactionsEntity());
+        when(transactionsService.findBalanceByName(MOCK_NAME)).thenReturn(returnListWithTwoPaymentMethodsTransactionEntity());
 
 
         when(mapper.toDto(returnObjectTransactionsEntity())).thenReturn(returnObjectTransactionsResponseDTO());
@@ -72,12 +69,12 @@ public class TransactionsFacadeImplTest {
 
     @Test
     public void saveTransactionsMustReturnOk() throws Exception{
-      assertEquals(returnObjectTransactionsResponseDTO(),transactionsFacade.save(returnObjectTransactionsRequestDTO()));
+        assertEquals(returnObjectTransactionsResponseDTO(),transactionsFacade.save(returnObjectTransactionsRequestDTO()));
     }
 
     @Test
     public void findAllByNameTransactionsMustReturnOk(){
-        assertEquals(returnListAllTransaaactionResponseDTO(),transactionsFacade.findAllByName(MOCK_NAME));
+        assertEquals(returnListTransactionsResponseDTO(),transactionsFacade.findAllByName(MOCK_NAME));
     }
 
     @Test
@@ -85,35 +82,29 @@ public class TransactionsFacadeImplTest {
         assertEquals(findBalanceByName(),transactionsFacade.findBalanceByName(MOCK_NAME));
     }
 
-    @Test
-    public void findAllBalanceByNamasaseInTheDebitMethodMustReturnOk(){
-        assertEquals(findBalanceByName(),transactionsFacade.findBalanceByName(MOCK_NAME));
-    }
-
     public BalanceResponseDTO findBalanceByName() {
-
         BigDecimal waitingFunds = BigDecimal.ZERO;
-            BigDecimal available = BigDecimal.ZERO;
-
+        BigDecimal available = BigDecimal.ZERO;
         available = available.add(MOCK_TRAMSACTION_AMOUNT);
-            waitingFunds = waitingFunds.add(MOCK_TRAMSACTION_AMOUNT);
+        waitingFunds = waitingFunds.add(MOCK_TRAMSACTION_AMOUNT);
 
         return  new BalanceResponseDTO(MOCK_NAME,available,waitingFunds);
     }
 
-    private List<TransactionsEntity> retuaarnListAllTransactionEntity() {
+    private List<TransactionsEntity> returnListAllTransactionsEntity() {
         List<TransactionsEntity> listEntity = new ArrayList<>();
         listEntity.add(returnObjectTransactionEntityWithId());
         return listEntity;
     }
-    private List<TransactionsEntity> returnListAllWithTwoPaymentMethodsTransactionEntity() {
+
+    private List<TransactionsEntity> returnListWithTwoPaymentMethodsTransactionEntity() {
         List<TransactionsEntity> listEntity = new ArrayList<>();
         listEntity.add(returnObjectTransactionEntityWithId());
         listEntity.add(returnObjectTransactionEntityWithIdInCreditMethod());
         return listEntity;
     }
 
-    private List<TransactionsResponseDTO> returnListAllTransaaactionResponseDTO() {
+    private List<TransactionsResponseDTO> returnListTransactionsResponseDTO() {
         List<TransactionsResponseDTO> listDto = new ArrayList<>();
         listDto.add(returnObjectTransactionsResponseDTO());
         return listDto;
@@ -146,6 +137,7 @@ public class TransactionsFacadeImplTest {
         return  new TransactionsEntity(null,MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,
                 MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,  returnObjectPayableEntityWithId());
     }
+
     private TransactionsEntity returnObjectTransactionEntityWithIdInCreditMethod(){
         return  new TransactionsEntity(null,MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,PaymentMethodEnum.CREDIT_CARD,MOCK_CARD_NUMBER,
                 MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,MOCK_CVV,  returnObjectPayableEntityWithId());

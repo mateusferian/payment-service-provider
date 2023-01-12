@@ -35,21 +35,21 @@ public class PayableServiceImplTest {
     }
 
     @Test
-    public  void  savePayableWipingTheCardInTheFromMethodDebit() {
+    public void savePayableWithCardOnDebitMethod() {
         assertEquals(returnObjectPayableEntityMethodDebit(), payableService.savePayable(PaymentMethodEnum.DEBIT_CARD));
     }
 
     @Test
-    public  void  savePayableWipingTheCardInTheFromMethodCredit() {
+    public void savePayableWithCardOnCreditMethod() {
         assertEquals(returnObjectPayableEntityMethodCredit(), payableService.savePayable(PaymentMethodEnum.CREDIT_CARD));
     }
 
     private PayableEntity returnObjectPayableEntityMethodDebit(){
-        return  new PayableEntity(PaymentMethodEnum.DEBIT_CARD.getStatus(), LocalDate.now());
+        return new PayableEntity(PaymentMethodEnum.DEBIT_CARD.getStatus(), LocalDate.now());
     }
 
     private PayableEntity returnObjectPayableEntityMethodCredit(){
-        return  new PayableEntity(PaymentMethodEnum.CREDIT_CARD.getStatus(),LocalDate.now().plusDays(30));
+        return new PayableEntity(PaymentMethodEnum.CREDIT_CARD.getStatus(),LocalDate.now().plusDays(30));
     }
 }
 

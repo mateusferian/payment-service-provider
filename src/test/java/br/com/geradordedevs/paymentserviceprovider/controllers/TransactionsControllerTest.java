@@ -135,7 +135,7 @@ public class TransactionsControllerTest {
     //Cvv
     private TransactionsRequestDTO returnTransactionsWithCvvMin(){
         return  new TransactionsRequestDTO( MOCK_TRAMSACTION_AMOUNT,MOCK_TRANSACTION_DESCRIPTION,
-               MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,0);
+                MOCK_PAYMENT_METHOD_ENUM,MOCK_CARD_NUMBER,MOCK_NAME,MOCK_CARD_EXPIRATION_DATE,0);
     }
 
     private TransactionsRequestDTO returnTransactionsWithCvvMax(){
@@ -154,6 +154,7 @@ public class TransactionsControllerTest {
         mockMvc.perform(get(ROUTE_BALANCE_TRANSACTIONS))
                 .andExpect(status().isOk());
     }
+
     @Test
     public void saveTransactionsMustReturnOk() throws Exception {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -210,13 +211,13 @@ public class TransactionsControllerTest {
     }
 
     // paymentMethod
-       @Test
-        public void saveTransactionsWithPaymentMethodNullMustReturnBadRequest() throws Exception {
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            mockMvc.perform(post(ROUTE_TRANSACTIONS)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(ow.writeValueAsString(returnoTransactionsWithPaymentMethodNull()))
-            ).andExpect(status().isBadRequest());
+    @Test
+    public void saveTransactionsWithPaymentMethodNullMustReturnBadRequest() throws Exception {
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        mockMvc.perform(post(ROUTE_TRANSACTIONS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(ow.writeValueAsString(returnoTransactionsWithPaymentMethodNull()))
+        ).andExpect(status().isBadRequest());
     }
 
     //cardNumber
