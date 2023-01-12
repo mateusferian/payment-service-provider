@@ -33,7 +33,7 @@ public class TransactionsRequestDTO {
     private String name;
 
     @NotBlank(message = "{white.field}")
-    @Size(min = 5 ,max = 5, message = "{size.invalid}")
+    @Size(min = 5 ,max = 5, message = "{size.invalid.card}")
     private String cardExpirationDate;
 
     @Max(value = 999, message = "{transaction.above.the.maximum}")
