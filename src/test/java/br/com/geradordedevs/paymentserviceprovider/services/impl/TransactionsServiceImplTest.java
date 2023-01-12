@@ -53,7 +53,7 @@ public class TransactionsServiceImplTest {
     }
 
     @Test
-    public void  findAllByName(){
+    public void findAllByNameTransactionsMustReturnOk(){
         assertEquals(returnListAllTransactionEntity(),transactionsService.findAllByName(MOCK_NAME));
     }
 
@@ -63,7 +63,7 @@ public class TransactionsServiceImplTest {
     }
 
     @Test
-    public void  findAllBalanceByName(){
+    public void findAllBalanceByNameMustReturnOk(){
         assertEquals(returnListAllTransactionEntity(),transactionsService.findAllByName(MOCK_NAME));
     }
 
