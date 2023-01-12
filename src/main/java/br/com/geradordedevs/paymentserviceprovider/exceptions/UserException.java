@@ -8,9 +8,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class ClientException extends  PayableServiceProviderException{
+public class UserException extends  PayableServiceProviderException{
 
-    public ClientException(ClientEnum error){
+    public UserException(ClientEnum error){
         super(error.getMessage());
         this.error =  error;
     }

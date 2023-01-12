@@ -45,8 +45,8 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     @ResponseBody
-    @ExceptionHandler(ClientException.class)
-    ResponseEntity<ErrorResponse> handlerClientException(ClientException ex){
+    @ExceptionHandler(UserException.class)
+    ResponseEntity<ErrorResponse> handlerClientException(UserException ex){
         return  ResponseEntity.status(ex.getError().getStatusCode())
                 .body((new ErrorResponse(
                         Instant.now().toEpochMilli(),

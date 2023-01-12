@@ -5,7 +5,7 @@ import br.com.geradordedevs.paymentserviceprovider.dtos.responses.BalanceRespons
 import br.com.geradordedevs.paymentserviceprovider.dtos.responses.TransactionsResponseDTO;
 import br.com.geradordedevs.paymentserviceprovider.entities.TransactionsEntity;
 import br.com.geradordedevs.paymentserviceprovider.enums.PaymentMethodEnum;
-import br.com.geradordedevs.paymentserviceprovider.exceptions.ClientException;
+import br.com.geradordedevs.paymentserviceprovider.exceptions.UserException;
 import br.com.geradordedevs.paymentserviceprovider.exceptions.enums.ClientEnum;
 import br.com.geradordedevs.paymentserviceprovider.facades.TransactionsFacade;
 import br.com.geradordedevs.paymentserviceprovider.mappers.TransactionsMapper;
@@ -33,7 +33,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
         List<TransactionsResponseDTO> transactionsResponseDTOS = new ArrayList<>();
          transactionsService.findAllByName(name).forEach(transactionsEntity -> transactionsResponseDTOS.add(mapper.toDto(transactionsEntity)));
         if (transactionsResponseDTOS.isEmpty()){
-            throw  new ClientException(ClientEnum.USER_NOT_FOUD);
+            throw  new UserException(ClientEnum.USER_NOT_FOUD);
         }else {
             return transactionsResponseDTOS;
         }
@@ -66,7 +66,7 @@ public class TransactionsFacadeImpl implements TransactionsFacade {
         balanceResponseDTO.setWaitingFunds(waitingFunds);
         balanceResponseDTO.setAvailable(available);
         if (balanceResponseDTO.getBearerName() == null) {
-            throw new ClientException(ClientEnum.USER_NOT_FOUD);
+            throw new UserException(ClientEnum.USER_NOT_FOUD);
         }else {
             return balanceResponseDTO;
         }
