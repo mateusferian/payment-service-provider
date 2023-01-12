@@ -19,17 +19,17 @@ public class PayableServiceImpl implements PayableService {
 
     @Override
     public PayableEntity savePayable(PaymentMethodEnum paymentMethodEnum) {
-            log.info("creating payable with payment method: {}",paymentMethodEnum);
-            PayableEntity payableEntity = new PayableEntity();
+        log.info("creating payable with payment method: {}",paymentMethodEnum);
+        PayableEntity payableEntity = new PayableEntity();
         if (paymentMethodEnum == PaymentMethodEnum.CREDIT_CARD) {
 
-                payableEntity.setPaymentDate(LocalDate.now().plusDays(30));
-                payableEntity.setStatus(PaymentMethodEnum.CREDIT_CARD.getStatus());
+            payableEntity.setPaymentDate(LocalDate.now().plusDays(30));
+            payableEntity.setStatus(PaymentMethodEnum.CREDIT_CARD.getStatus());
         }
 
         if (paymentMethodEnum == PaymentMethodEnum.DEBIT_CARD) {
-                payableEntity.setPaymentDate(LocalDate.now());
-                payableEntity.setStatus(PaymentMethodEnum.DEBIT_CARD.getStatus());
+            payableEntity.setPaymentDate(LocalDate.now());
+            payableEntity.setStatus(PaymentMethodEnum.DEBIT_CARD.getStatus());
         }
 
         return payableRepository.save(payableEntity);
