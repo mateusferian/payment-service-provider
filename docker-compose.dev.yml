@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  server:
+    container_name: gd-recursos-humanos-api
+    entrypoint: [ "sh", "-c", "java -cp app:app/lib/* br.com.geradordedevs.paymentserviceprovider.PaymentServiceProviderApplication" ]
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://payment-service-provider-db:3306/db_payment_service_provider?autoReconnect=true&useSSL=false
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=db-recurso
+      - DATABASE_USER=db_payment_service_provider
+      - DATABASE_PASSWORD=123456
+      - DATABASE_NAME=db_payment_service_provider
+      - DATABASE_PORT=3306
+  db-service-provider:
+    image: mysql:8.0
+    container_name: payment-service-provider-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=db_payment_service_provider
+      - MYSQL_USER=db_payment_service_provider
+      - MYSQL_PASSWORD=123456
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/db:/data/db
+
+
